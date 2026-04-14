@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.env
+
+config/*.json
+config/*.toml
+
+*.xlsx
