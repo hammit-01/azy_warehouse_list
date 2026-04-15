@@ -98,20 +98,6 @@ if warehouse != "전체":
 if name != "전체":
     filtered_df = filtered_df[filtered_df["수탁품"] == name]
 # =========================
-# 정렬
-# =========================
-col_sort, col_order = st.columns([1,1])
-
-with col_sort:
-    sort_col = st.selectbox("정렬 컬럼", filtered_df.columns)
-
-with col_order:
-    sort_order = st.selectbox("정렬 방식", ["오름차순", "내림차순"])
-
-ascending = True if sort_order == "오름차순" else False
-filtered_df = filtered_df.sort_values(by=sort_col, ascending=ascending)
-
-# =========================
 # KPI
 # =========================
 col1, col2 = st.columns(2)
