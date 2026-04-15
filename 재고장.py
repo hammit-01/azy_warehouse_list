@@ -14,8 +14,12 @@ div[data-testid="stHorizontalBlock"] {
 div[data-testid="stHorizontalBlock"] > div {
     flex: 1 !important;
 }
-div[data-baseweb="select"] {
-    width: 100px !important;
+.small-box {
+    display: flex;
+    justify-content: center;  /* 가운데 */
+}
+.small-box div[data-baseweb="select"] {
+    width: 80% !important;
 }
 </style>
 """, unsafe_allow_html=True)
