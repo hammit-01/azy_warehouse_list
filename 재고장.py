@@ -39,7 +39,7 @@ col_title, col_update = st.columns([4,1])
 
 with col_title:
     st.markdown(
-        "<h1 style='margin:0; padding:12px;'>📊 모바일 재고\n대시보드</h1>",
+        "<h1 style='margin:0; padding:12px;'>📊 재고 대시보드</h1>",
         unsafe_allow_html=True
     )
 
@@ -93,27 +93,39 @@ df = df[cols]
 # =========================
 # 필터 UI
 # =========================
-st.markdown('<div class="filter-start"></div>', unsafe_allow_html=True)
+with st.container():
+    
+    st.markdown("""
+    <div style="
+        background-color:#f8f9fb;
+        padding:15px;
+        border-radius:15px;
+        margin-bottom:15px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    ">
+    """, unsafe_allow_html=True)
 
-# 1줄
-col1, col2 = st.columns([1, 1])
+    st.markdown("🔍 **필터**")
 
-with col1:
-    brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
+    # 1줄
+    col1, col2 = st.columns(2)
 
-with col2:
-    bl = st.selectbox("BL번호", ["전체"] + sorted(df["BL번호"].dropna().unique()))
+    with col1:
+        brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
 
-# 2줄
-col3, col4 = st.columns([1, 1])
+    with col2:
+        bl = st.selectbox("BL번호", ["전체"] + sorted(df["BL번호"].dropna().unique()))
 
-with col3:
-    warehouse = st.selectbox("창고", ["전체"] + sorted(df["창고"].dropna().unique()))
+    # 2줄
+    col3, col4 = st.columns(2)
 
-with col4:
-    name = st.selectbox("품목", ["전체"] + sorted(df["수탁품"].dropna().unique()))
+    with col3:
+        warehouse = st.selectbox("창고", ["전체"] + sorted(df["창고"].dropna().unique()))
 
+    with col4:
+        name = st.selectbox("품목", ["전체"] + sorted(df["수탁품"].dropna().unique()))
 
+    st.markdown("</div>", unsafe_allow_html=True)
 # =========================
 # 필터 적용
 # =========================
