@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 
 # 제목
 st.markdown(
-    "<h1 style='font-size:5rem;'>📊 재고장 대시보드</h1>",
+    "<h1 style='font-size:3rem; padding-top: 3rem; padding-bottom: 1rem;'>📊 재고장 대시보드</h1>",
     unsafe_allow_html=True
 )
 
