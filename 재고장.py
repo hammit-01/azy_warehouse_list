@@ -15,7 +15,7 @@ div[data-testid="stHorizontalBlock"] > div {
     flex: 1 !important;
 }
 div[data-baseweb="select"] {
-    width: 300px !important;
+    width: 100px !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -86,7 +86,7 @@ df = df[cols]
 # 필터 UI
 # =========================
 # 1줄
-col1, col2 = st.columns([1, 1], gap="small")
+col1, col2 = st.columns([1, 1])
 
 with col1:
     brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
@@ -95,7 +95,7 @@ with col2:
     bl = st.selectbox("BL번호", ["전체"] + sorted(df["BL번호"].dropna().unique()))
 
 # 2줄
-col3, col4 = st.columns([1, 1], gap="small")
+col3, col4 = st.columns([1, 1])
 
 with col3:
     warehouse = st.selectbox("창고", ["전체"] + sorted(df["창고"].dropna().unique()))
