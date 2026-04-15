@@ -6,15 +6,22 @@ import pandas as pd
 # =========================
 st.markdown("""
 <style>
-div[data-testid="stHorizontalBlock"] {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 10px;
+
+/* 컬럼 내부 박스 */
+div[data-testid="column"] {
+    padding: 0 !important;
 }
 
-div[data-testid="stHorizontalBlock"] > div {
-    flex: 1;
+/* selectbox 전체 너비 */
+div[data-baseweb="select"] {
+    width: 100% !important;
 }
+
+/* 컬럼 균등 분배 */
+div[data-testid="stHorizontalBlock"] > div {
+    flex: 1 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
