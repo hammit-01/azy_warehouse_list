@@ -4,7 +4,7 @@ import pandas as pd
 # =========================
 # 기본 설정
 # =========================
-today = pd.Timestamp.today().strftime("%Y-%m-%d")
+today = pd.Timestamp.today().strftime("%Y-%m-%d %H:%M")
 
 col_title, col_update = st.columns([4,1])
 
