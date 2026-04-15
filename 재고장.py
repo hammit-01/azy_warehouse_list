@@ -2,35 +2,6 @@ import streamlit as st
 import pandas as pd
 
 # =========================
-# CSS
-# =========================
-st.markdown("""
-<style>
-
-/* 필터 영역 전체 카드화 */
-.filter-start + div {
-    background-color: #f8f9fb;
-    padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-/* selectbox 꽉 채우기 */
-div[data-baseweb="select"] {
-    width: 100% !important;
-}
-
-/* 컬럼 간격 */
-div[data-testid="column"] {
-    padding: 0 5px !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-
-# =========================
 # 기본 설정
 # =========================
 today = pd.Timestamp.today().strftime("%Y-%m-%d")
@@ -93,39 +64,23 @@ df = df[cols]
 # =========================
 # 필터 UI
 # =========================
-with st.container():
-    
-    st.markdown("""
-    <div style="
-        background-color:#f8f9fb;
-        padding:15px;
-        border-radius:15px;
-        margin-bottom:15px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    ">
-    """, unsafe_allow_html=True)
+# 1줄
+col1, col2 = st.columns(2)
 
-    st.markdown("🔍 **필터**")
+with col1:
+    brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
 
-    # 1줄
-    col1, col2 = st.columns(2)
+with col2:
+    bl = st.selectbox("BL번호", ["전체"] + sorted(df["BL번호"].dropna().unique()))
 
-    with col1:
-        brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
+# 2줄
+col3, col4 = st.columns(2)
 
-    with col2:
-        bl = st.selectbox("BL번호", ["전체"] + sorted(df["BL번호"].dropna().unique()))
+with col3:
+    warehouse = st.selectbox("창고", ["전체"] + sorted(df["창고"].dropna().unique()))
 
-    # 2줄
-    col3, col4 = st.columns(2)
-
-    with col3:
-        warehouse = st.selectbox("창고", ["전체"] + sorted(df["창고"].dropna().unique()))
-
-    with col4:
-        name = st.selectbox("품목", ["전체"] + sorted(df["수탁품"].dropna().unique()))
-
-    st.markdown("</div>", unsafe_allow_html=True)
+with col4:
+    name = st.selectbox("품목", ["전체"] + sorted(df["수탁품"].dropna().unique()))
 # =========================
 # 필터 적용
 # =========================
