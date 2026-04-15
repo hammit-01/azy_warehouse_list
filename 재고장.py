@@ -34,7 +34,7 @@ div[data-testid="stHorizontalBlock"] div[data-baseweb="select"] > div {
 
 /* 라벨 */
 label[data-testid="stWidgetLabel"] {
-    font-size: 2rem !important;
+    font-size: 1rem !important;
     font-weight: 700;
 }
 
@@ -42,7 +42,7 @@ label[data-testid="stWidgetLabel"] {
 .block-container {
     max-width: auto;   /* 가로 길이 제한 */
     margin: 0 auto;      /* 가운데 정렬 */
-    padding-top: 2rem;
+    padding-top: 1rem;
 }
 
 </style>
@@ -173,9 +173,9 @@ styled_df = (
         "평균중량": "{:.2f}",
         "소비기한": lambda x: x.strftime("%Y-%m-%d") if pd.notnull(x) else ""
     })
-    .set_properties(subset=["수탁품"], **{"font-size": "0.5rem; font-weight: bold;"})
-    .set_properties(subset=["브랜드"], **{"font-size": "0.3rem; font-weight: bold;"})
-    .set_properties(subset=["중량"], **{"font-size": "0.4rem; font-weight: bold;"})
+    .set_properties(subset=["수탁품"], **{"font-size": "1.5rem; font-weight: bold;"})
+    .set_properties(subset=["브랜드"], **{"font-size": "1.3rem; font-weight: bold;"})
+    .set_properties(subset=["중량"], **{"font-size": "1.4rem; font-weight: bold;"})
     .hide(axis="index")
 )
 
