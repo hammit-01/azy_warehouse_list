@@ -67,7 +67,6 @@ df["이력번호"] = (
 )
 
 df["소비기한"] = pd.to_datetime(df["소비기한"], unit="ms", errors="coerce")
-df["소비기한"] = df["소비기한"].dt.date
 
 cols = [
     "수탁품", "브랜드", "등급", "ESTNO", "BL번호", "이력번호",
@@ -165,6 +164,7 @@ def mark_expiry(row):
     return ""
 
 filtered_df["유통상태"] = filtered_df.apply(mark_expiry, axis=1)
+filtered_df["소비기한"] = filtered_df["소비기한"].dt.strftime("%Y-%m-%d")
 
 # =========================
 # 자동 컬럼 사이즈 설정
