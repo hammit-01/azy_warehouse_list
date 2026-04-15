@@ -6,22 +6,9 @@ import pandas as pd
 # =========================
 st.markdown("""
 <style>
-
-/* 컬럼 내부 박스 */
-div[data-testid="column"] {
-    padding: 0 !important;
-}
-
-/* selectbox 전체 너비 */
 div[data-baseweb="select"] {
-    width: 50px !important;
+    width: 100% !important;
 }
-
-/* 컬럼 균등 분배 */
-div[data-testid="stHorizontalBlock"] > div {
-    flex: 1 !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -127,7 +114,7 @@ if name != "전체":
 # =========================
 # 정렬
 # =========================
-col_sort, col_order = st.columns(2)
+col_sort, col_order = st.columns([1,1])
 
 with col_sort:
     sort_col = st.selectbox("정렬 컬럼", filtered_df.columns)
