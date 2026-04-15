@@ -44,14 +44,18 @@ limit = today + pd.Timedelta(days=30)
 # 데이터 전처리
 # =========================
 df["중량"] = pd.to_numeric(
-    df["중량"].astype(str).str.replace(",", ""),
+    df["중량"].astype(str).str.replace(r"[^\d.]", "", regex=True),
     errors="coerce"
 )
 
 df["평균중량"] = pd.to_numeric(
-    df["평균중량"].astype(str).str.replace(",", ""),
+    df["평균중량"].astype(str).str.replace(r"[^\d.]", "", regex=True),
     errors="coerce"
 )
+
+df["중량"] = df["중량"].fillna(0)
+df["평균중량"] = df["평균중량"].fillna(0)
+
 
 df["재고수량"] = pd.to_numeric(df["재고수량"], errors="coerce")
 
@@ -62,7 +66,8 @@ df["이력번호"] = (
     .astype("string")
 )
 
-df["소비기한"] = pd.to_datetime(df["소비기한"], errors="coerce")
+df["소비기한"] = pd.to_datetime(df["소비기한"], unit="ms", errors="coerce")
+df["소비기한"] = df["소비기한"].dt.date
 
 cols = [
     "수탁품", "브랜드", "등급", "ESTNO", "BL번호", "이력번호",
@@ -169,12 +174,13 @@ def auto_column_config(df):
 
     for col in df.columns:
         config[col] = st.column_config.TextColumn(width="small")
+        config[col] = st.column_config.NumberColumn(width="small")
 
     # 숫자 컬럼도 small
-    config["수탁품"] = st.column_config.NumberColumn(width="midium")
-    config["BL번호"] = st.column_config.NumberColumn(width="midium")
-    config["이력번호"] = st.column_config.NumberColumn(width="midium")
-    config["소비기한"] = st.column_config.NumberColumn(width="midium")
+    config["수탁품"] = st.column_config.TextColumn(width="midium")
+    config["BL번호"] = st.column_config.TextColumn(width="midium")
+    config["이력번호"] = st.column_config.TextColumn(width="midium")
+    config["소비기한"] = st.column_config.TextColumn(width="midium")
 
     return config
 
