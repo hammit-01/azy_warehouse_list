@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 
 # 제목
 st.markdown(
-    "<h1 style='font-size:3rem; padding-top: 3rem; padding-bottom: 1rem;'>📊 재고장 대시보드</h1>",
+    "<h1 style='font-size:3rem; padding-top: 3rem; padding-bottom: 1rem;'>📊 재고장 대시보드 mobile</h1>",
     unsafe_allow_html=True
 )
 
@@ -173,9 +173,9 @@ styled_df = (
         "평균중량": "{:.2f}",
         "소비기한": lambda x: x.strftime("%Y-%m-%d") if pd.notnull(x) else ""
     })
-    .set_properties(subset=["수탁품"], **{"font-size": "1rem; font-weight: bold;"})
-    .set_properties(subset=["브랜드"], **{"font-size": "0.5rem; font-weight: bold;"})
-    .set_properties(subset=["중량"], **{"font-size": "0.7rem; font-weight: bold;"})
+    .set_properties(subset=["수탁품"], **{"font-size": "0.5rem; font-weight: bold;"})
+    .set_properties(subset=["브랜드"], **{"font-size": "0.3rem; font-weight: bold;"})
+    .set_properties(subset=["중량"], **{"font-size": "0.4rem; font-weight: bold;"})
     .hide(axis="index")
 )
 
