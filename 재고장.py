@@ -57,7 +57,10 @@ df["중량"] = df["중량"].fillna(0)
 df["평균중량"] = df["평균중량"].fillna(0)
 
 
-df["재고수량"] = pd.to_numeric(df["재고수량"], errors="coerce")
+df["재고수량"] = pd.to_numeric(
+    df["재고수량"].astype(str).str.replace(",", ""),
+    errors="coerce"
+).fillna(0).astype(int)
 
 
 df["이력번호"] = (
