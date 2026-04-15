@@ -14,7 +14,7 @@ div[data-testid="column"] {
 
 /* selectbox 전체 너비 */
 div[data-baseweb="select"] {
-    width: 100% !important;
+    width: 50px !important;
 }
 
 /* 컬럼 균등 분배 */
@@ -90,7 +90,7 @@ df = df[cols]
 # 필터 UI
 # =========================
 # 1줄
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([1, 1], gap="small")
 
 with col1:
     brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
@@ -99,7 +99,7 @@ with col2:
     bl = st.selectbox("BL번호", ["전체"] + sorted(df["BL번호"].dropna().unique()))
 
 # 2줄
-col3, col4 = st.columns(2)
+col3, col4 = st.columns([1, 1], gap="small")
 
 with col3:
     warehouse = st.selectbox("창고", ["전체"] + sorted(df["창고"].dropna().unique()))
@@ -151,6 +151,7 @@ with col1:
         f"""
         <div style="
             background-color:#e3f2fd;
+            margin: 10px;
             padding:20px;
             border-radius:15px;
             text-align:center;
@@ -167,6 +168,7 @@ with col2:
         f"""
         <div style="
             background-color:#e8f5e9;
+            margin: 10px;
             padding:20px;
             border-radius:15px;
             text-align:center;
