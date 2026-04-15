@@ -40,7 +40,7 @@ label[data-testid="stWidgetLabel"] {
 
 /* 전체 컨텐츠 영역 */
 .block-container {
-    max-width: 90rem;   /* 가로 길이 제한 */
+    max-width: auto;   /* 가로 길이 제한 */
     margin: 0 auto;      /* 가운데 정렬 */
     padding-top: 2rem;
 }
@@ -173,9 +173,9 @@ styled_df = (
         "평균중량": "{:.2f}",
         "소비기한": lambda x: x.strftime("%Y-%m-%d") if pd.notnull(x) else ""
     })
-    .set_properties(subset=["수탁품"], **{"font-size": "1.5rem; font-weight: bold;"})
-    .set_properties(subset=["브랜드"], **{"font-size": "1rem; font-weight: bold;"})
-    .set_properties(subset=["중량"], **{"font-size": "1.2rem; font-weight: bold;"})
+    .set_properties(subset=["수탁품"], **{"font-size": "1rem; font-weight: bold;"})
+    .set_properties(subset=["브랜드"], **{"font-size": "0.5rem; font-weight: bold;"})
+    .set_properties(subset=["중량"], **{"font-size": "0.7rem; font-weight: bold;"})
     .hide(axis="index")
 )
 
