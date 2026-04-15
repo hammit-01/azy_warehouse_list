@@ -46,7 +46,7 @@ df = df[cols]
 # =========================
 # 필터 UI
 # =========================
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
@@ -56,6 +56,9 @@ with col2:
 
 with col3:
     warehouse = st.selectbox("창고", ["전체"] + sorted(df["창고"].dropna().unique()))
+
+with col4:
+    name = st.selectbox("품목", ["전체"] + sorted(df["수탁품"].dropna().unique()))
 
 # =========================
 # 필터 적용
@@ -71,6 +74,8 @@ if bl != "전체":
 if warehouse != "전체":
     filtered_df = filtered_df[filtered_df["창고"] == warehouse]
 
+if name != "전체":
+    filtered_df = filtered_df[filtered_df["품목"] == name]
 # =========================
 # 정렬
 # =========================
