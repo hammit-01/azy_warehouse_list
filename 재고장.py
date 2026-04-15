@@ -2,6 +2,24 @@ import streamlit as st
 import pandas as pd
 
 # =========================
+# CSS
+# =========================
+st.markdown("""
+<style>
+div[data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 10px;
+}
+
+div[data-testid="stHorizontalBlock"] > div {
+    flex: 1;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+# =========================
 # 기본 설정
 # =========================
 today = pd.Timestamp.today().strftime("%Y-%m-%d")
@@ -10,7 +28,7 @@ col_title, col_update = st.columns([4,1])
 
 with col_title:
     st.markdown(
-        "<h1 style='margin:0;'>📊 모바일 재고 대시보드</h1>",
+        "<h1 style='margin:0;'>📊 모바일 재고\n대시보드</h1>",
         unsafe_allow_html=True
     )
 
