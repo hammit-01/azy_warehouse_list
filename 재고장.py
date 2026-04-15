@@ -43,8 +43,18 @@ limit = today + pd.Timedelta(days=30)
 # =========================
 # 데이터 전처리
 # =========================
-df["중량"] = df["중량"].astype(str).str.replace(",", "").astype(float)
-df["재고수량"] = pd.to_numeric(df["재고수량"], errors="coerce").astype("Int64")
+df["중량"] = pd.to_numeric(
+    df["중량"].astype(str).str.replace(",", ""),
+    errors="coerce"
+)
+
+df["평균중량"] = pd.to_numeric(
+    df["평균중량"].astype(str).str.replace(",", ""),
+    errors="coerce"
+)
+
+df["재고수량"] = pd.to_numeric(df["재고수량"], errors="coerce")
+
 
 df["이력번호"] = (
     pd.to_numeric(df["이력번호"], errors="coerce")
@@ -158,23 +168,15 @@ def auto_column_config(df):
     config = {}
 
     for col in df.columns:
-        max_len = df[col].astype(str).str.len().max()
+        config[col] = st.column_config.TextColumn(width="small")
 
-        if max_len < 8:
-            size = "small"
-        elif max_len < 20:
-            size = "medium"
-        else:
-            size = "large"
-
-        config[col] = st.column_config.TextColumn(width=size)
-
-    # 숫자 컬럼은 작게
+    # 숫자 컬럼도 small
     config["재고수량"] = st.column_config.NumberColumn(width="small")
     config["중량"] = st.column_config.NumberColumn(width="small")
     config["평균중량"] = st.column_config.NumberColumn(width="small")
 
     return config
+
 
 # =========================
 # 출력
