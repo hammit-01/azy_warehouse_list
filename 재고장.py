@@ -173,7 +173,6 @@ def auto_column_config(df):
     config = {}
 
     for col in df.columns:
-        config[col] = st.column_config.TextColumn(width="small")
         config[col] = st.column_config.NumberColumn(width="small")
 
     # 숫자 컬럼도 small
@@ -181,6 +180,10 @@ def auto_column_config(df):
     config["BL번호"] = st.column_config.TextColumn(width="midium")
     config["이력번호"] = st.column_config.TextColumn(width="midium")
     config["소비기한"] = st.column_config.TextColumn(width="midium")
+    config["브랜드"] = st.column_config.TextColumn(width="small")
+    config["등급"] = st.column_config.TextColumn(width="small")
+    config["ESTNO"] = st.column_config.TextColumn(width="small")
+    config["창고"] = st.column_config.TextColumn(width="small")
 
     return config
 
