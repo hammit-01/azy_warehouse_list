@@ -150,7 +150,7 @@ colA.metric("총 재고수량", int(filtered_df["재고수량"].sum()))
 colB.metric("총 중량", round(filtered_df["중량"].sum(), 2))
 colC.metric("업데이트 일자", today.strftime("%Y-%m-%d"))
 
-colA, colB, colC = st.columns([1,2,1])
+colA, colB, colC = st.columns([1,1,1])
 
 # =========================
 # 유통기한 강조 함수
