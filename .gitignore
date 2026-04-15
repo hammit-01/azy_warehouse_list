@@ -9,3 +9,5 @@ config/*.json
 config/*.toml
 
 *.xlsx
+!template.xlsx
+
