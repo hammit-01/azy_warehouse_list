@@ -6,11 +6,20 @@ import pandas as pd
 # =========================
 st.markdown("""
 <style>
+div[data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
+div[data-testid="stHorizontalBlock"] > div {
+    flex: 1 !important;
+}
 div[data-baseweb="select"] {
-    width: 100% !important;
+    width: 300px !important;
 }
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # =========================
@@ -22,7 +31,7 @@ col_title, col_update = st.columns([4,1])
 
 with col_title:
     st.markdown(
-        "<h1 style='margin:0; padding:10px;'>📊 모바일 재고\n대시보드</h1>",
+        "<h1 style='margin:0; padding:12px;'>📊 모바일 재고\n대시보드</h1>",
         unsafe_allow_html=True
     )
 
