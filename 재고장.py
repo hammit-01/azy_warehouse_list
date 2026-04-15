@@ -4,13 +4,31 @@ import pandas as pd
 # =========================
 # 기본 설정
 # =========================
-st.set_page_config(layout="wide")
+today = pd.Timestamp.today().strftime("%Y-%m-%d")
 
-st.markdown(
-    "<h1 style='font-size:2.5rem; padding-top: 1rem;'>📱 재고 대시보드</h1>",
-    unsafe_allow_html=True
-)
+col_title, col_update = st.columns([4,1])
 
+with col_title:
+    st.markdown(
+        "<h1 style='margin:0;'>📊 모바일 재고 대시보드</h1>",
+        unsafe_allow_html=True
+    )
+
+with col_update:
+    st.markdown(
+        f"""
+        <div style="
+            background-color:#f0f2f6;
+            padding:10px;
+            border-radius:10px;
+            text-align:center;
+            font-weight:600;
+        ">
+        📅 {today}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 # =========================
 # 데이터 로드
 # =========================
@@ -46,7 +64,7 @@ df = df[cols]
 # =========================
 # 필터 UI
 # =========================
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4 = st.columns(2)
 
 with col1:
     brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
@@ -93,11 +111,42 @@ filtered_df = filtered_df.sort_values(by=sort_col, ascending=ascending)
 # =========================
 # KPI
 # =========================
-colA, colB, colC = st.columns(3)
+col1, col2 = st.columns(2)
 
-colA.metric("총 재고수량", int(filtered_df["재고수량"].sum()))
-colB.metric("총 중량", round(filtered_df["중량"].sum(), 2))
-colC.metric("업데이트", today.strftime("%m-%d"))
+total_qty = int(filtered_df["재고수량"].sum())
+total_weight = round(filtered_df["중량"].sum(), 2)
+
+with col1:
+    st.markdown(
+        f"""
+        <div style="
+            background-color:#e3f2fd;
+            padding:20px;
+            border-radius:15px;
+            text-align:center;
+        ">
+            <div style="font-size:1.2rem;">총 재고수량</div>
+            <div style="font-size:2rem; font-weight:bold;">{total_qty}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+with col2:
+    st.markdown(
+        f"""
+        <div style="
+            background-color:#e8f5e9;
+            padding:20px;
+            border-radius:15px;
+            text-align:center;
+        ">
+            <div style="font-size:1.2rem;">총 중량</div>
+            <div style="font-size:2rem; font-weight:bold;">{total_weight}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # =========================
 # 유통기한 강조 컬럼 생성
