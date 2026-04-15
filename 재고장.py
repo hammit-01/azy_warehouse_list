@@ -82,8 +82,8 @@ df = df[cols]
 # =========================
 col1, col2 = st.columns(2)
 
-total_qty = int(filtered_df["재고수량"].sum())
-total_weight = round(filtered_df["중량"].sum(), 2)
+total_qty = int(df["재고수량"].sum())
+total_weight = round(df["중량"].sum(), 2)
 
 with col1:
     st.markdown(
