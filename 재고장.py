@@ -6,20 +6,14 @@ import pandas as pd
 # =========================
 st.markdown("""
 <style>
-/* 카드 컨테이너 */
-.filter-card {
+
+/* 필터 영역 전체 카드화 */
+.filter-start + div {
     background-color: #f8f9fb;
-    padding: 15px 15px 10px 15px;
+    padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-/* 타이틀 */
-.filter-title {
-    font-weight: 700;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
 }
 
 /* selectbox 꽉 채우기 */
@@ -34,6 +28,7 @@ div[data-testid="column"] {
 
 </style>
 """, unsafe_allow_html=True)
+
 
 # =========================
 # 기본 설정
@@ -98,6 +93,8 @@ df = df[cols]
 # =========================
 # 필터 UI
 # =========================
+st.markdown('<div class="filter-start"></div>', unsafe_allow_html=True)
+
 # 1줄
 col1, col2 = st.columns([1, 1])
 
