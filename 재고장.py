@@ -6,25 +6,34 @@ import pandas as pd
 # =========================
 st.markdown("""
 <style>
-div[data-testid="stHorizontalBlock"] {
-    display: flex !important;
-    flex-wrap: nowrap !important;
+/* 카드 컨테이너 */
+.filter-card {
+    background-color: #f8f9fb;
+    padding: 15px 15px 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-div[data-testid="stHorizontalBlock"] > div {
-    flex: 1 !important;
+/* 타이틀 */
+.filter-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
 }
-.small-box {
-    display: flex;
-    justify-content: center;  /* 가운데 */
+
+/* selectbox 꽉 채우기 */
+div[data-baseweb="select"] {
+    width: 100% !important;
 }
-.small-box div[data-baseweb="select"] {
-    width: 80% !important;
+
+/* 컬럼 간격 */
+div[data-testid="column"] {
+    padding: 0 5px !important;
 }
+
 </style>
 """, unsafe_allow_html=True)
-
-
 
 # =========================
 # 기본 설정
