@@ -22,7 +22,7 @@ col_title, col_update = st.columns([4,1])
 
 with col_title:
     st.markdown(
-        "<h1 style='margin:0;'>📊 모바일 재고\n대시보드</h1>",
+        "<h1 style='margin:0; padding:10px;'>📊 모바일 재고\n대시보드</h1>",
         unsafe_allow_html=True
     )
 
