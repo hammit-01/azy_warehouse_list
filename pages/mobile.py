@@ -1,8 +1,7 @@
 import streamlit as st
+import pandas as pd
 
 st.set_page_config(layout="centered")
-
-import pandas as pd
 
 # =========================
 # 기본 설정
