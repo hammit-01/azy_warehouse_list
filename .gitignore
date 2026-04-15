@@ -1,8 +1,36 @@
+# Python cache
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
 
+# Virtual env
+venv/
+.env/
+
+# Environment variables (중요)
 .env
 
-# data / config는 허용
-!data/
-!config/
+# Streamlit secrets (중요)
+.streamlit/secrets.toml
+
+# Config (비밀키 포함 가능)
+config/*.json
+config/*.toml
+
+# Data (운영 데이터는 제외)
+data/*.xlsx
+data/*.csv
+
+# 특정 파일만 허용
+!data/jns.xlsx
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
