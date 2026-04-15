@@ -6,47 +6,10 @@ import pandas as pd
 # =========================
 st.set_page_config(layout="wide")
 
-# 제목
 st.markdown(
-    "<h1 style='font-size:3rem; padding-top: 3rem; padding-bottom: 1rem;'>📊 재고장 대시보드 mobile</h1>",
+    "<h1 style='font-size:2.5rem; padding-top: 1rem;'>📱 재고 대시보드</h1>",
     unsafe_allow_html=True
 )
-
-# =========================
-# CSS (필터 UI)
-# =========================
-st.markdown("""
-<style>
-
-/* 필터 영역 */
-div[data-testid="stHorizontalBlock"] {
-    background-color: #f5f5f5;
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 10px;
-}
-
-/* selectbox 내부 */
-div[data-testid="stHorizontalBlock"] div[data-baseweb="select"] > div {
-    background-color: white;
-    font-size: 1rem;
-}
-
-/* 라벨 */
-label[data-testid="stWidgetLabel"] {
-    font-size: 1rem !important;
-    font-weight: 700;
-}
-
-/* 전체 컨텐츠 영역 */
-.block-container {
-    max-width: auto;   /* 가로 길이 제한 */
-    margin: 0 auto;      /* 가운데 정렬 */
-    padding-top: 1rem;
-}
-
-</style>
-""", unsafe_allow_html=True)
 
 # =========================
 # 데이터 로드
@@ -62,22 +25,17 @@ limit = today + pd.Timedelta(days=30)
 # =========================
 # 데이터 전처리
 # =========================
-
-# 숫자 처리
 df["중량"] = df["중량"].astype(str).str.replace(",", "").astype(float)
 df["재고수량"] = pd.to_numeric(df["재고수량"], errors="coerce").astype("Int64")
 
-# 이력번호 (핵심 처리)
 df["이력번호"] = (
     pd.to_numeric(df["이력번호"], errors="coerce")
     .astype("Int64")
     .astype("string")
 )
 
-# 날짜 처리
 df["소비기한"] = pd.to_datetime(df["소비기한"], errors="coerce")
 
-# 컬럼 정리
 cols = [
     "수탁품", "브랜드", "등급", "ESTNO", "BL번호", "이력번호",
     "재고수량", "중량", "평균중량",
@@ -91,22 +49,13 @@ df = df[cols]
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    brand = st.selectbox(
-        "브랜드",
-        ["전체"] + sorted(df["브랜드"].dropna().unique())
-    )
+    brand = st.selectbox("브랜드", ["전체"] + sorted(df["브랜드"].dropna().unique()))
 
 with col2:
-    bl = st.selectbox(
-        "BL번호",
-        ["전체"] + sorted(df["BL번호"].dropna().unique())
-    )
+    bl = st.selectbox("BL번호", ["전체"] + sorted(df["BL번호"].dropna().unique()))
 
 with col3:
-    warehouse = st.selectbox(
-        "창고",
-        ["전체"] + sorted(df["창고"].dropna().unique())
-    )
+    warehouse = st.selectbox("창고", ["전체"] + sorted(df["창고"].dropna().unique()))
 
 # =========================
 # 필터 적용
@@ -123,7 +72,7 @@ if warehouse != "전체":
     filtered_df = filtered_df[filtered_df["창고"] == warehouse]
 
 # =========================
-# 내림차 오름차
+# 정렬
 # =========================
 col_sort, col_order = st.columns(2)
 
@@ -134,12 +83,7 @@ with col_order:
     sort_order = st.selectbox("정렬 방식", ["오름차순", "내림차순"])
 
 ascending = True if sort_order == "오름차순" else False
-
 filtered_df = filtered_df.sort_values(by=sort_col, ascending=ascending)
-
-
-
-
 
 # =========================
 # KPI
@@ -148,48 +92,51 @@ colA, colB, colC = st.columns(3)
 
 colA.metric("총 재고수량", int(filtered_df["재고수량"].sum()))
 colB.metric("총 중량", round(filtered_df["중량"].sum(), 2))
-colC.metric("업데이트 일자", today.strftime("%Y-%m-%d"))
-
-colA, colB, colC = st.columns([1,1,1])
+colC.metric("업데이트", today.strftime("%m-%d"))
 
 # =========================
-# 유통기한 강조 함수
+# 유통기한 강조 컬럼 생성
 # =========================
-def highlight_expiry(val):
-    if pd.isna(val):
+def mark_expiry(row):
+    if pd.isna(row["소비기한"]):
         return ""
-    if today <= pd.Timestamp(val) <= limit:
-        return "color: red; font-weight: bold; font-size: 1.2rem;"
+    if today <= row["소비기한"] <= limit:
+        return "⚠️ 임박"
     return ""
 
+filtered_df["유통상태"] = filtered_df.apply(mark_expiry, axis=1)
+
 # =========================
-# 스타일 적용
+# 자동 컬럼 사이즈 설정
 # =========================
-styled_df = (
-    filtered_df.style
-    .map(highlight_expiry, subset=["소비기한"])
-    .format({
-        "중량": "{:.2f}",
-        "평균중량": "{:.2f}",
-        "소비기한": lambda x: x.strftime("%Y-%m-%d") if pd.notnull(x) else ""
-    })
-    .set_properties(subset=["수탁품"], **{"font-size": "1.5rem; font-weight: bold;"})
-    .set_properties(subset=["브랜드"], **{"font-size": "1.3rem; font-weight: bold;"})
-    .set_properties(subset=["중량"], **{"font-size": "1.4rem; font-weight: bold;"})
-    .hide(axis="index")
-)
+def auto_column_config(df):
+    config = {}
+
+    for col in df.columns:
+        max_len = df[col].astype(str).str.len().max()
+
+        if max_len < 8:
+            size = "small"
+        elif max_len < 20:
+            size = "medium"
+        else:
+            size = "large"
+
+        config[col] = st.column_config.TextColumn(width=size)
+
+    # 숫자 컬럼은 작게
+    config["재고수량"] = st.column_config.NumberColumn(width="small")
+    config["중량"] = st.column_config.NumberColumn(width="small")
+    config["평균중량"] = st.column_config.NumberColumn(width="small")
+
+    return config
 
 # =========================
 # 출력
 # =========================
-st.markdown(
-    f"""
-    <div style="display:flex; justify-content:center;">
-        <div style="width:100%;">
-            {styled_df.to_html()}
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True
+st.dataframe(
+    filtered_df,
+    column_config=auto_column_config(filtered_df),
+    use_container_width=True,
+    hide_index=True
 )
-
