@@ -171,9 +171,10 @@ def auto_column_config(df):
         config[col] = st.column_config.TextColumn(width="small")
 
     # 숫자 컬럼도 small
-    config["재고수량"] = st.column_config.NumberColumn(width="small")
-    config["중량"] = st.column_config.NumberColumn(width="small")
-    config["평균중량"] = st.column_config.NumberColumn(width="small")
+    config["수탁품"] = st.column_config.NumberColumn(width="midium")
+    config["BL번호"] = st.column_config.NumberColumn(width="midium")
+    config["이력번호"] = st.column_config.NumberColumn(width="midium")
+    config["소비기한"] = st.column_config.NumberColumn(width="midium")
 
     return config
 
